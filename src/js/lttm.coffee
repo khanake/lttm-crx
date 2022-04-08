@@ -52,22 +52,25 @@ atwhoOptions =
                   alt: "tiqav"
               callback images
         when kind is "m"
-          $.getJSON chrome.extension.getURL("/config/meigens.json"), (data) ->
-            boys = []
+          $.getJSON chrome.extension.getURL("/config/matt.json"), (data) ->
+            matts = []
             if query
-              boys = _.filter(data, (n) ->
-                (n.title and n.title.indexOf(query) > -1) or (n.body and n.body.indexOf(query) > -1)
+              matts = _.filter(data, (matt) ->
+                !!_.find(matt.keywords, (keyword) ->
+                  keyword.indexOf(query) > -1
+                )
               )
             else
-              boys = _.sample(data, 30)
+              matts = data
+
             images = []
-            $.each boys, (k, v) ->
-              image = v.image.replace('http://', 'https://')
+            _.each(matts, (matt) ->
               images.push
-                name: image
-                imageUrl: image
-                imagePreviewUrl: previewUrl(image)
-                alt: "ミサワ"
+                name: matt.url
+                imageUrl: matt.url
+                imagePreviewUrl: matt.url
+                alt: "matt"
+            )
             callback images
         when kind is "i"
           $.getJSON chrome.extension.getURL("/config/irasutoya.json"), (data) ->

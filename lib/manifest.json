@@ -25,6 +25,7 @@
   ],
   "web_accessible_resources": [
     "config/meigens.json",
+    "config/matt.json",
     "config/sushi_list.json",
     "config/js_girls.json",
     "config/decomoji.json",
